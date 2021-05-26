@@ -77,7 +77,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+      return view('admin.posts.edit', compact('post'));
     }
 
     /**
@@ -89,7 +89,20 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+      $request->validate([
+        'title'=> 'required|string|max:255',
+        'content'=> 'required|string',
+      ]);
+
+      $data = $request->all();
+
+      if ($post->title != $data['title']) {
+        $data['slug'] = $this->genSlug($data['title']);
+      }
+
+      $post->update($data);
+
+      return redirect()->route('admin.posts.index');
     }
 
     /**
