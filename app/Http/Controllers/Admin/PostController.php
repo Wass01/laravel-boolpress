@@ -96,9 +96,7 @@ class PostController extends Controller
 
       $data = $request->all();
 
-      if ($post->title != $data['title']) {
-        $data['slug'] = $this->genSlug($data['title']);
-      }
+      $data['slug'] = $this->genSlug($data['title'], $post->title != $data['title']);
 
       $post->update($data);
 
@@ -116,9 +114,14 @@ class PostController extends Controller
         //
     }
 
-    private function genSlug(string $title)
+    private function genSlug(string $title, bool $change = true)
     {
       $slug = Str::slug($title, '-');
+
+      if (!$change) {
+        return $slug;
+      }
+
       $slug_base = $slug;
       $counter = 1;
 
@@ -132,6 +135,4 @@ class PostController extends Controller
 
       return $slug;
     }
-
-
 }
