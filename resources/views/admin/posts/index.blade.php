@@ -17,6 +17,12 @@
               {{$post->content}}
 
               <a href="{{route('admin.posts.edit', ['post' => $post->id])}}">Edit</a>
+              <form action="{{route('admin.posts.destroy',['post'=>$post->id])}}" method="post">
+                @csrf
+                @method('DELETE')
+                <input class="delete" onclick="return confirm('sicuro di voler eliminare questo post')" type="submit" value="DELETE">
+              </form>
+              <a href="{{route('admin.posts.show', ['post' => $post->id])}}">Info</a>
             </div>
           </div>
         </div>
