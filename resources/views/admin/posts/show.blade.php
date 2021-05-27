@@ -8,6 +8,7 @@
     <div class="card-body">
       <p>Title: {{$post->title}}</p>
       <p>Description: {{$post->content}}</p>
+      <h4>Category: {{$post->category->title}}</h4>
     </div>
   </div>
 </div>
